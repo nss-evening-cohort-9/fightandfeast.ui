@@ -1,3 +1,20 @@
 .Home {
-  display: block;
+  display: flex;
+  flex-direction: column;
+}
+
+.home-main {
+  display: flex;
+  flex-direction: row;
+}
+
+.home-sidebar {
+  display: flex;
+  flex-direction: column;
+}
+
+@media only screen and (min-width: 768px) {
+  .Home {
+    flex-direction: row
+  }
 }
