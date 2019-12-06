@@ -17,25 +17,23 @@ const MyNavbar = (props) => {
   const toggle = () => setIsOpen(!isOpen);
 
   return (
-      <div>
-      <Navbar color="dark" dark expand="md">
-        <NavbarBrand href="/">Fight & Feast</NavbarBrand>
-        <NavbarToggler onClick={toggle} />
-        <Collapse isOpen={isOpen} navbar>
-          <Nav className="mr-auto" navbar>
-            <NavItem>
-              <NavLink href="/account/">Account</NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="/cart/">Cart</NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="/">Logout</NavLink>
-            </NavItem>
-          </Nav>
-        </Collapse>
-      </Navbar>
-    </div>
+    <Navbar color="dark" dark expand="md">
+      <NavbarBrand href="/">Fight & Feast</NavbarBrand>
+      <NavbarToggler onClick={toggle} />
+      <Collapse isOpen={isOpen} navbar>
+        <Nav className="mr-auto" navbar>
+          <NavItem>
+            <NavLink href="/account/">Account</NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink href="/cart/">Cart</NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink href="/">Logout</NavLink>
+          </NavItem>
+        </Nav>
+      </Collapse>
+    </Navbar>
   );
 };
 
