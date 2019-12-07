@@ -10,11 +10,13 @@ const ProductCard = (props) => {
     productDescription,
   } = props.product;
   return (
-    <div className="ProductCard border">
-      <h6>{productName}</h6>
-      <p>at {clubName}</p>
-      <p>${price}</p>
+    <div className="ProductCard border p-2">
+      <h6 className="mb-0">{productName}</h6>
+      <p className="border-bottom pb-1 mb-1">at {clubName}</p>
       <p>{productDescription}</p>
+      <div className="product-card-price">
+        <p className="p-0 m-0">${price}</p>
+      </div>
     </div>
   );
 };
