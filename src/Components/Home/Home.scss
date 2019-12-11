@@ -1,3 +1,28 @@
 .Home {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  padding: .5rem;
+}
+
+.home-main {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.home-main-productWindow {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.home-sidebar {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+@media only screen and (min-width: 768px) {
+  .Home {
+    flex-direction: row
+  }
 }
