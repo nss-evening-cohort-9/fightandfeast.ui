@@ -7,41 +7,26 @@ import  './ProductPage.scss';
 class Product extends React.Component {
 
     state = {
-        products : [],
+        product : {},
         
     };
 
       componentDidMount = () => {
-        ProductData.getallProducts()
+        ProductData.getProductbyid()
         .then(resp => {
-          const data = resp 
-          this.setState({products:data})
+          this.setState({ product:resp.data})
         })
       }
 
 
-//     componentDidMount () {
-//         getallProducts.getallProducts().then(data => {
-//             this.setState({products:data});
-//         });
-//     } 
 
-//     buildProducts= () => this.state.products.map(t => (
-//         <div key={t.Id}>{t.Name}</div>
-//         ));
-// getallProducts = () =>{
-//     ProductData.getallProducts()
-//     .then(productCard => this.setState({ productCard}))
-//     .catch(error => console.error(error));
-
-// }
 
     
 render() {
     const { product } = this.state;
             return (
                 <div className= "DriveCard col-3">
-                <div className= "divive-card products">
+                <div className= "divive-card product">
                 <div className= "product-body">
                 {/* <h5 className="card-title">{product.Name}</h5>
                 <h6 className="card-typeid">{product.TypeId}</h6>

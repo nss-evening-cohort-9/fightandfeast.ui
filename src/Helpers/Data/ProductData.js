@@ -11,4 +11,6 @@ resolve(response.data)
 .catch(err => reject(err))
 );
 
+getProductbyid
+
 export default { getallProducts }
