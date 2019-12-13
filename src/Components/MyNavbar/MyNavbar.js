@@ -21,7 +21,7 @@ const MyNavbar = (props) => {
       <NavbarBrand href="/">Fight & Feast</NavbarBrand>
       <NavbarToggler onClick={toggle} />
       <Collapse isOpen={isOpen} navbar>
-        <Nav className="mr-auto" navbar>
+        <Nav className="ml-auto" navbar>
           <NavItem>
             <NavLink href="/account/">Account</NavLink>
           </NavItem>

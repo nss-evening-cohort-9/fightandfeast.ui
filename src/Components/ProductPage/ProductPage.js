@@ -1,5 +1,5 @@
 import React from 'react';
-import getallProducts from '../../Helpers/Data/ProductData';
+import moment from 'moment';
 import ProductData from '../../Helpers/Data/ProductData';
 import  './ProductPage.scss';
 
@@ -11,13 +11,14 @@ class Product extends React.Component {
         
     };
 
-      componentDidMount = () => {
-        ProductData.getProductbyid()
-        .then(resp => {
-          this.setState({ product:resp.data})
-        })
-      }
+   
 
+      componentDidMount() {
+       const productId = this.props.match.params.id;
+       ProductData.getProductById(productId)
+       .then(productPromise => this.setState({ product: productPromise.data }))
+       .catch(err => console.error('unable to get product'));
+      }
 
 
 
@@ -25,18 +26,15 @@ class Product extends React.Component {
 render() {
     const { product } = this.state;
             return (
-                <div className= "DriveCard col-3">
-                <div className= "divive-card product">
-                <div className= "product-body">
-                {/* <h5 className="card-title">{product.Name}</h5>
-                <h6 className="card-typeid">{product.TypeId}</h6>
-                <h6 className="card-price">{product.Price}</h6>
-                <h6 className="card-decription">{product.Description}</h6> */}
-
-                </div>
-                </div>
-
-                </div>
+              <div className="ProductCard border p-2">
+              <h6 className="mb-0">{productName}</h6>
+              <p className="mb-0">at {clubName}</p>
+              <p className="border-bottom pb-1 mb-1">{moment({ eventDate }).format('MMMM Do YYYY')}</p>
+              <p>{productDescription}</p>
+              <div className="product-card-price">
+                <p className="p-0 m-0">${price}</p>
+              </div>
+            </div>
               
             );
 }
