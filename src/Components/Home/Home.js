@@ -3,6 +3,7 @@ import React from 'react';
 import getLatestProducts from '../../Helpers/Data/ProductsData';
 
 import ProductCard from '../ProductCard/ProductCard';
+import Auth from '../Auth/Auth';
 
 import './Home.scss';
 
@@ -32,6 +33,7 @@ class Home extends React.Component {
     return (
       <div className="Home">
         <div className="home-sidebar">
+    <div className="loginDiv">{Auth}</div>
           <h4>Product Categories</h4>
           <ul>
             <li>Tickets (20)</li>

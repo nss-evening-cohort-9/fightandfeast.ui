@@ -7,15 +7,15 @@ import './Auth.scss';
 class Auth extends React.Component {
     loginClickEvent = (e) => {
       e.preventDefault();
-      const provider = firebase.auth.GoogleAuthProvider();
+      const provider = new firebase.auth.GoogleAuthProvider();
       firebase.auth().signInWithPopup(provider);
     }
 
     render() {
       return (
-            <div className="Auth">
-                <button className="btn btn-danger" onClick={this.loginClickEvent}>Login with Google</button>
-            </div>
+        <div className="Auth">
+          <button className="btn btn-danger" onClick={this.loginClickEvent}>Login with Google</button>
+        </div>
       );
     }
 }
