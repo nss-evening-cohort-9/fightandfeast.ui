@@ -9,7 +9,6 @@ import './Home.scss';
 
 class Home extends React.Component {
   state = {
-    isFetching: false,
     latestProducts: [],
   }
 
