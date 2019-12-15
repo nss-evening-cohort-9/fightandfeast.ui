@@ -8,12 +8,15 @@ const getLatestProducts = () => new Promise((resolve, reject) => {
     .catch((err) => reject(err));
 });
 
-const getProductById = () => new Promise((resolve, reject) => {
- axios.get(`${baseUrl}/ClubProducts/productid`)
-  .then((res) => resolve(res.data))
-  .catch((err) => reject(err));
+const getProductById = (productId) => new Promise((resolve, reject) => {
+  axios.get(`${baseUrl}/clubProducts/${productId}`)
+    .then((res) => resolve(res.data))
+    .catch((err) => reject(err));
 });
 
-export default { getLatestProducts,
-                  getProductById
-                }           
+
+export default
+{
+  getLatestProducts,
+  getProductById,
+};
