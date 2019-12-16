@@ -31,6 +31,9 @@ class Product extends React.Component {
       return (
 
               <div className="Product border p-2">
+                <div>
+                  <p className="Title">Product</p>
+                </div>
               <h6 className="mb-0">{productName}</h6>
               <p className="mb-0">at {clubName}</p>
               <p className="border-bottom pb-1 mb-1">{moment({ eventDate }).format('MMMM Do YYYY')}</p>
