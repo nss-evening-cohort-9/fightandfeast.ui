@@ -21,5 +21,16 @@ h6 {
   text-align-last: end;
 }
 .Title {
-  font-size: 2.5rem;
+  font-size: 2rem;
+  align-self: 0 auto;
+  
+}
+
+.p-2 {
+  padding: .5rem!important;
+  max-width: fit-content;
+  margin-left: 2rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+
 }
