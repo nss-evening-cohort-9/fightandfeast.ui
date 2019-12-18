@@ -32,7 +32,6 @@ class Home extends React.Component {
     return (
       <div className="Home">
         <div className="home-sidebar">
-    <div className="loginDiv">{Auth}</div>
           <h4>Product Categories</h4>
           <ul>
             <li>Tickets (20)</li>
@@ -46,6 +45,7 @@ class Home extends React.Component {
             {latestProducts ? printLatestProducts : ''}
           </div>
         </div>
+        <div className="loginDiv"><Auth /></div>
       </div>
     );
   }

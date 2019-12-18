@@ -1,14 +1,16 @@
 import React from 'react';
-import firebase from 'firebase/app';
-import 'firebase/auth';
+import { Link } from 'react-router-dom';
+import authRequests from '../../Helpers/Validation/Validation';
 
 import './Auth.scss';
 
 class Auth extends React.Component {
   loginClickEvent = (e) => {
+    const { user } = this.state;
     e.preventDefault();
-    const provider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().signInWithPopup(provider).then((user) => { console.error(user); })
+    authRequests.loginUser(user)
+      .then(() => { this.props.history.push('/products'); })
+      .catch((error) => { console.error('problem with login'); });
   }
 
   render() {

@@ -8,25 +8,22 @@ import {
 import firebase from 'firebase/app';
 import Home from '../Components/Home/Home';
 import Navbar from '../Components/MyNavbar/MyNavbar';
-import Auth from '../Components/Auth/Auth';
 import fbConnection from '../Helpers/fbConnection';
 
 import './App.scss';
+import ProductCard from '../Components/ProductCard/ProductCard';
 
 fbConnection();
 
 const PublicRoute = ({ component: Component, authenticated, ...rest }) => {
-  const routeChecker = (props) => (authenticated === false
-    ? (<Component {...props } {...rest} />)
-    : (<Redirect to={{ pathname: '/home', state: { from: props.location } }} />)
-  );
+  const routeChecker = (props) => (<Component {...props } {...rest} />);
   return <Route render={(props) => routeChecker(props)} />;
 };
 
 const PrivateRoute = ({ component: Component, authenticated, ...rest }) => {
   const routeChecker = (props) => (authenticated === true
     ? (<Component {...props} {...rest} />)
-    : (<Redirect to={{ pathname: '/', state: { from: props.location } }} />)
+    : (<Redirect to={{ pathname: '/login', state: { from: props.location } }} />)
   );
   return <Route render={(props) => routeChecker(props)} />;
 };
@@ -35,18 +32,6 @@ class App extends React.Component {
   state = {
     authenticated: false,
   }
-
-  // loginClickEvent = (e) => {
-  //   e.preventDefault();
-  //   const provider = new firebase.auth.GoogleAuthProvider();
-  //   firebase.auth().signInWithPopup(provider).then((user) => {
-  //     if (user.credential.idToken !== '') {
-  //       this.setState({ authenticated: true });
-  //     } else {
-  //       this.setState({ authenticated: false });
-  //     }
-  //   });
-  // }
 
   componentDidMount() {
     this.removeListener = firebase.auth().onAuthStateChanged((user) => {
@@ -71,10 +56,9 @@ class App extends React.Component {
           <React.Fragment>
             <Navbar authenticated={authenticated}/>
               <Switch>
-                {/* <PublicRoute path='/' component={Auth} login={this.loginClickEvent} authenticated={authenticated} /> */}
-                {/* <PublicRoute path='/home' component={Home} authenticated={authenticated} /> */}
-                {/* <Redirect from="*" to="/" /> */}
-                <Route component={Auth} pathname="/"></Route>
+                <PublicRoute path='/home' component={Home} authenticated={this.state.authenticated} />
+                <PrivateRoute path='/products' component={ProductCard} authenticated={this.state.authenticated} />
+                <Redirect from="*" to="/" />
               </Switch>
           </React.Fragment>
         </BrowserRouter>
