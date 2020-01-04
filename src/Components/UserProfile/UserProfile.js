@@ -11,9 +11,11 @@ const UserProfile = (props) => {
     phone,
     email,
   } = props.customerInfo;
+  // eslint-disable-next-line global-require
+  const defaultUserImg = require('../../Assets/default-user-image.png');
   return (
     <div className="UserProfile">
-      <h1>User Picture Here</h1>
+      <img className="mb-2" alt="default user" src={defaultUserImg} height="300" />
       <p>Date Joined: {moment({ dateCreated }).format('MMMM Do, YYYY')}</p>
       <div className="profile-info container">
         <div className="profile-info-left col-6">
