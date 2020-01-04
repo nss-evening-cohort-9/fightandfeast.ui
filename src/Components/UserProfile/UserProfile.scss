@@ -1,0 +1,13 @@
+.UserProfile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%
+}
