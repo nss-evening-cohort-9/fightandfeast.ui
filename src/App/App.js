@@ -7,17 +7,23 @@ import Home from '../Components/Home/Home';
 import Navbar from '../Components/MyNavbar/MyNavbar';
 import UserProfile from '../Components/UserProfile/UserProfile';
 import getCustomerById from '../Helpers/Data/CustomerData';
+import ProductsData from '../Helpers/Data/ProductsData';
 
 import './App.scss';
 
 class App extends React.Component {
   state = {
     customerInfo: [],
+    allProducts: [],
+    query: '',
   }
 
   componentDidMount() {
     getCustomerById()
       .then((res) => this.setState({ customerInfo: res }))
+      .catch((err) => console.error(err));
+    ProductsData.getAllProducts()
+      .then((res) => this.setState({ allProducts: res }))
       .catch((err) => console.error(err));
   }
 
@@ -26,7 +32,10 @@ class App extends React.Component {
       <div className="App">
         <BrowserRouter>
           <React.Fragment>
-            <Navbar />
+            <Navbar
+              allProducts={this.state.allProducts}
+              query={this.state.query}
+            />
             <div>
               <Switch>
                 <Route exact path="/">

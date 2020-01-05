@@ -1,6 +1,6 @@
 import React from 'react';
 
-import getLatestProducts from '../../Helpers/Data/ProductsData';
+import ProductsData from '../../Helpers/Data/ProductsData';
 
 import ProductCard from '../ProductCard/ProductCard';
 
@@ -12,7 +12,7 @@ class Home extends React.Component {
   }
 
   componentDidMount() {
-    getLatestProducts()
+    ProductsData.getLatestProducts()
       .then((res) => this.setState({ latestProducts: res }))
       .catch((err) => console.error(err));
   }
