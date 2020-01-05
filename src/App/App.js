@@ -2,13 +2,14 @@ import React from 'react';
 import {
   BrowserRouter, Redirect, Route, Switch,
 } from 'react-router-dom';
-
 import Home from '../Components/Home/Home';
 import Navbar from '../Components/MyNavbar/MyNavbar';
+import ProductPage from '../Components/ProductPage/ProductPage';
 import UserProfile from '../Components/UserProfile/UserProfile';
 import getCustomerById from '../Helpers/Data/CustomerData';
 
 import './App.scss';
+
 
 class App extends React.Component {
   state = {
@@ -32,6 +33,7 @@ class App extends React.Component {
                 <Route exact path="/">
                   <Home />
                 </Route>
+                <Route path="/ClubProductsId/:id" component={ProductPage}></Route>
                 <Route path="/profile">
                   <UserProfile
                     customerInfo={this.state.customerInfo}
