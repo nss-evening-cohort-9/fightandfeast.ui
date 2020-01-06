@@ -33,8 +33,7 @@ class App extends React.Component {
                 <Route exact path="/">
                   <Home />
                 </Route>
-                <Route path="/ClubProductsId/:id" component={ProductPage}>
-                </Route>
+                <Route path="/ClubProductsId/:id" component={ProductPage}></Route>
                 <Route path="/profile">
                   <UserProfile
                     customerInfo={this.state.customerInfo}
