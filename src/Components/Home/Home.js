@@ -52,9 +52,9 @@ class Home extends React.Component {
         <div className="home-sidebar">
           <h4>Product Categories</h4>
           <ul>
-            <li id='1' onClick={this.filterProduct}>Tickets(20)</li>
-            <li id='2' onClick={this.filterProduct}>Spectator Packages (5)</li>
-            <li id='3' onClick={this.filterProduct}>Fighter Packages (4)</li>
+            <li id='1' onClick={this.filterProduct}>Tickets</li>
+            <li id='2' onClick={this.filterProduct}>Spectator Packages</li>
+            <li id='3' onClick={this.filterProduct}>Fighter Packages</li>
             <li id='0' onClick={this.filterProduct}>All</li>
 
           </ul>
