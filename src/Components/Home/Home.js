@@ -9,12 +9,31 @@ import './Home.scss';
 class Home extends React.Component {
   state = {
     latestProducts: [],
+    productsClub: [],
+  }
+
+
+  filterProduct = (e) => {
+    const ProductType = e.target.id;
+    const intProductType = parseInt(ProductType, 10);
+    const { productsClub } = this.state;
+    if (intProductType === 0) {
+      this.getAllProductsClub();
+    }
+    const filteredData = productsClub.filter((product) => product.typeId === intProductType);
+    this.setState({
+      latestProducts: filteredData,
+    });
+  }
+
+  getAllProductsClub = () => {
+    productsData.getLatestProducts()
+      .then((res) => this.setState({ latestProducts: res, productsClub: res }))
+      .catch((err) => console.error(err));
   }
 
   componentDidMount() {
-    productsData.getLatestProducts()
-      .then((res) => this.setState({ latestProducts: res }))
-      .catch((err) => console.error(err));
+    this.getAllProductsClub();
   }
 
   render() {
@@ -33,9 +52,11 @@ class Home extends React.Component {
         <div className="home-sidebar">
           <h4>Product Categories</h4>
           <ul>
-            <li>Tickets (20)</li>
-            <li>Spectator Packages (5)</li>
-            <li>Fighter Packages (4)</li>
+            <li id='1' onClick={this.filterProduct}>Tickets(20)</li>
+            <li id='2' onClick={this.filterProduct}>Spectator Packages (5)</li>
+            <li id='3' onClick={this.filterProduct}>Fighter Packages (4)</li>
+            <li id='0' onClick={this.filterProduct}>All</li>
+
           </ul>
         </div>
         <div className="home-main">
