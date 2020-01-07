@@ -26,6 +26,7 @@ class Home extends React.Component {
     });
   }
 
+
   getAllProductsClub = () => {
     productsData.getLatestProducts()
       .then((res) => this.setState({ latestProducts: res, productsClub: res }))
@@ -53,8 +54,8 @@ class Home extends React.Component {
           <h4>Product Categories</h4>
           <ul>
             <li id='1' onClick={this.filterProduct}>Tickets</li>
-            <li id='2' onClick={this.filterProduct}>Spectator Packages</li>
-            <li id='3' onClick={this.filterProduct}>Fighter Packages</li>
+            <li id='2' onClick={this.filterProduct}>Spectator Packages(4)</li>
+            <li id='3' onClick={this.filterProduct}>Fighter Packages(3)</li>
             <li id='0' onClick={this.filterProduct}>All</li>
 
           </ul>
@@ -62,7 +63,17 @@ class Home extends React.Component {
         <div className="home-main">
           <h1>Products</h1>
           <div className="home-main-productWindow">
-            {latestProducts ? printLatestProducts : ''}
+            {
+              (latestProducts.length > 0)
+                ? (
+                  printLatestProducts
+                )
+                : (
+                  <React.Fragment>
+                    <p>Results no found</p>
+                  </React.Fragment>
+                )
+            }
           </div>
         </div>
       </div>
