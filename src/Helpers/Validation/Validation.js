@@ -1,9 +1,6 @@
 /* eslint-disable max-len */
 import firebase from 'firebase';
 import axios from 'axios';
-// import {
-//   createConfigItem,
-// } from '@babel/core';
 
 const baseUrl = 'https://localhost:44347/api';
 
@@ -12,7 +9,6 @@ axios.interceptors.request.use((request) => {
   if (token != null) {
     request.headers.Authorization = `Bearer ${token}`;
   }
-
   return request;
 }, (err) => Promise.reject(err));
 
@@ -24,12 +20,7 @@ const registerUser = (user) => firebase.auth().createUserWithEmailAndPassword(us
     .then(() => axios.post(`${baseUrl}/users`, userInfo));
 });
 
-// const loginUser = (user) => firebase.auth().signInWithEmailAndPassword(user.email, user.password).then((cred) => {
-//   cred.user.getIdToken()
-//     .then((token) => sessionStorage.setItem('token', token));
-// });
-
-const loginUser = (user) => firebase.auth().signInWithPopup(user).then((cred) => {
+const loginUser = (user) => firebase.auth().signInWithEmailAndPassword(user.email, user.password).then((cred) => {
   cred.user.getIdToken()
     .then((token) => sessionStorage.setItem('token', token));
 });

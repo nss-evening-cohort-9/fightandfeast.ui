@@ -3,7 +3,6 @@ import React from 'react';
 import getLatestProducts from '../../Helpers/Data/ProductsData';
 
 import ProductCard from '../ProductCard/ProductCard';
-import Auth from '../Auth/Auth';
 
 import './Home.scss';
 
@@ -45,7 +44,6 @@ class Home extends React.Component {
             {latestProducts ? printLatestProducts : ''}
           </div>
         </div>
-        <div className="loginDiv"><Auth /></div>
       </div>
     );
   }
