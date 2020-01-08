@@ -14,4 +14,15 @@ const getLatestProducts = () => new Promise((resolve, reject) => {
     .catch((err) => reject(err));
 });
 
-export default { getAllProducts, getLatestProducts };
+const getProductById = (productId) => new Promise((resolve, reject) => {
+  axios.get(`${baseUrl}/clubProducts/${productId}`)
+    .then((res) => resolve(res.data))
+    .catch((err) => reject(err));
+});
+
+
+export default {
+  getAllProducts,
+  getLatestProducts,
+  getProductById,
+};

@@ -1,7 +1,8 @@
 import React from 'react';
 
 import Fuse from 'fuse.js';
-import ProductsData from '../../Helpers/Data/ProductsData';
+import productsData from '../../Helpers/Data/ProductsData';
+
 import ProductCard from '../ProductCard/ProductCard';
 
 import './Home.scss';
@@ -40,12 +41,11 @@ class Home extends React.Component {
   }
 
   componentDidMount() {
-    ProductsData.getLatestProducts()
+    productsData.getLatestProducts()
       .then((res) => this.setState({ productsResults: res, latestProducts: res }))
       .catch((err) => console.error(err));
-    ProductsData.getAllProducts()
-      .then((res) => this.setState({ allProducts: res }))
-      .catch((err) => console.error(err));
+    productsData.getAllProducts()
+      .then((res) => this.setState({ allProducts: res }));
   }
 
   render() {
