@@ -18,7 +18,7 @@ const ProductCard = (props) => {
       <p className="border-bottom pb-1 mb-1">{moment({ eventDate }).format('MMMM Do, YYYY')}</p>
       <p>{productDescription}</p>
       <div className="product-card-price">
-        <p className="p-0 m-0">${price}</p>
+        <p className="p-0 m-0">${price.toFixed(2)}</p>
       </div>
     </div>
   );
