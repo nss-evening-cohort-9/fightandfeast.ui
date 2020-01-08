@@ -15,7 +15,9 @@ class Home extends React.Component {
 
   filterProduct = (e) => {
     const ProductType = e.target.id;
+    console.error(ProductType, '888');
     const intProductType = parseInt(ProductType, 10);
+    console.error(ProductType);
     const { productsClub } = this.state;
     if (intProductType === 0) {
       this.getAllProductsClub();
@@ -24,6 +26,7 @@ class Home extends React.Component {
     this.setState({
       latestProducts: filteredData,
     });
+    console.error(this.state.latestProducts, 'ppp');
   }
 
 
@@ -52,11 +55,13 @@ class Home extends React.Component {
       <div className="Home">
         <div className="home-sidebar">
           <h4>Product Categories</h4>
-          <ul>
-            <li id='1' onClick={this.filterProduct}>Tickets({latestProducts.length})</li>
-            <li id='2' onClick={this.filterProduct}>Spectator Packages({latestProducts.length})</li>
-            <li id='3' onClick={this.filterProduct}>Fighter Packages({latestProducts.length})</li>
-            <li id='0' onClick={this.filterProduct}>All</li>
+          <ul
+          onClick={this.filterProduct}
+          >
+            <li id='1' >Tickets({latestProducts.length})</li>
+            <li id='2'>Spectator Packages({latestProducts.length})</li>
+            <li id='3' >Fighter Packages({latestProducts.length})</li>
+            <li id='0' >All</li>
 
           </ul>
         </div>
