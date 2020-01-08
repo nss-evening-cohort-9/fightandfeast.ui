@@ -11,6 +11,9 @@ import Auth from '../Components/Auth/Auth';
 import Navbar from '../Components/MyNavbar/MyNavbar';
 import Register from '../Components/Register/Register';
 import fbConnection from '../Helpers/fbConnection';
+import ProductPage from '../Components/ProductPage/ProductPage';
+import UserProfile from '../Components/UserProfile/UserProfile';
+import getCustomerById from '../Helpers/Data/CustomerData';
 
 import './App.scss';
 import ProductCard from '../Components/ProductCard/ProductCard';
@@ -39,7 +42,6 @@ const PrivateRoute = ({ component: Component, authenticated, ...rest }) => (
     />
 );
 
-
 class App extends React.Component {
   state = {
     authenticated: false,
@@ -61,8 +63,16 @@ class App extends React.Component {
     }
   }
 
-  logout = () => {
-    this.setState({ authenticated: false });
+  // logout = () => {
+  //   this.setState({ authenticated: false });
+  //   customerInfo: [],
+  // }
+
+  // eslint-disable-next-line no-dupe-class-members
+  componentDidMount() {
+    getCustomerById()
+      .then((res) => this.setState({ customerInfo: res }))
+      .catch((err) => console.error(err));
   }
 
   render() {
@@ -78,6 +88,12 @@ class App extends React.Component {
                 <PublicRoute path='/auth' component={Auth} authenticated={this.state.authenticated} />
                 <PrivateRoute path='/home' component={Home} authenticated={this.state.authenticated} />
                 <PrivateRoute path='/products' component={ProductCard} authenticated={this.state.authenticated} />
+                <PrivateRoute path="/ClubProductsId/:id" component={ProductPage} authenticated={this.state.authenticated} />
+                <PrivateRoute path="/profile">
+                  <UserProfile
+                    customerInfo={this.state.customerInfo}
+                  />
+                </PrivateRoute>
                 <Redirect from="*" to="/home" />
               </Switch>
           </React.Fragment>
