@@ -17,13 +17,13 @@ import getCustomerById from '../Helpers/Data/CustomerData';
 
 import './App.scss';
 import ProductCard from '../Components/ProductCard/ProductCard';
+import Login from '../Components/Login/Login';
 
 fbConnection();
 
 const PublicRoute = ({ component: Component, authenticated, ...rest }) => (
-  // const routeChecker = (props) => (<Component {...props } {...rest} />);
   <Route {...rest} render={(props) => (authenticated === false ? (
-    <Component {...props} />
+  <Component {...props} />
   ) : (
     <Redirect to={{ pathname: '/home', state: { from: props.location } }} />
   ))} />);
@@ -49,6 +49,9 @@ class App extends React.Component {
 
   componentDidMount() {
     this.removeListener = firebase.auth().onAuthStateChanged(this.authUser);
+    getCustomerById()
+      .then((res) => this.setState({ customerInfo: res }))
+      .catch((err) => console.error(err));
   }
 
   componentWillUnmount() {
@@ -63,18 +66,6 @@ class App extends React.Component {
     }
   }
 
-  // logout = () => {
-  //   this.setState({ authenticated: false });
-  //   customerInfo: [],
-  // }
-
-  // eslint-disable-next-line no-dupe-class-members
-  componentDidMount() {
-    getCustomerById()
-      .then((res) => this.setState({ customerInfo: res }))
-      .catch((err) => console.error(err));
-  }
-
   render() {
     const { authenticated } = this.state;
 
@@ -85,6 +76,7 @@ class App extends React.Component {
             <Navbar authenticated={authenticated}/>
               <Switch>
                 <PublicRoute path='/register' component={Register} authenticated={this.state.authenticated} />
+                <PublicRoute path='/login' component={Login} authenticated={this.state.authenticated} />
                 <PublicRoute path='/auth' component={Auth} authenticated={this.state.authenticated} />
                 <PrivateRoute path='/home' component={Home} authenticated={this.state.authenticated} />
                 <PrivateRoute path='/products' component={ProductCard} authenticated={this.state.authenticated} />

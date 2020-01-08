@@ -21,8 +21,10 @@ const registerUser = (user) => firebase.auth().createUserWithEmailAndPassword(us
 });
 
 const loginUser = (user) => firebase.auth().signInWithEmailAndPassword(user.email, user.password).then((cred) => {
+  const userInfo = { email: cred.user.email };
   cred.user.getIdToken()
-    .then((token) => sessionStorage.setItem('token', token));
+    .then((token) => sessionStorage.setItem('token', token))
+    .then(() => axios.get(`${baseUrl}/users/${userInfo.email}.json`));
 });
 
 const logoutUser = () => firebase.auth().signOut();
