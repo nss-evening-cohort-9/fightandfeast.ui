@@ -21,6 +21,20 @@
   padding: 1rem;
 }
 
+h4 {
+  font-size: 1rem;
+}
+li {
+  list-style-type: none;
+  font-weight: 475;
+  cursor: pointer;
+}
+
+
+
+  
+
+
 @media only screen and (min-width: 768px) {
   .Home {
     flex-direction: row

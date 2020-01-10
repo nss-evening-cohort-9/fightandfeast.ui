@@ -11,6 +11,7 @@ class Home extends React.Component {
   state = {
     allProducts: [],
     latestProducts: [],
+    productsClub: [],
     productsResults: [],
   }
 
@@ -40,16 +41,43 @@ class Home extends React.Component {
     query: '',
   }
 
+
+  filterProduct = (e) => {
+    const ProductType = e.target.id;
+    const intProductType = parseInt(ProductType, 10);
+    const { allProducts } = this.state;
+
+    const filteredData = allProducts.filter((product) => product.typeId === intProductType);
+    this.setState({
+      productsResults: filteredData,
+    });
+    if (intProductType === 0) {
+      this.setState({
+        productsResults: allProducts,
+      });
+    }
+  }
+
+  findAmount = (id) => {
+    const filteredData = this.state.allProducts.filter((product) => product.typeId === id);
+    return filteredData.length;
+  };
+
+  getAllProducts = () => {
+    productsData.getAllProducts()
+      .then((res) => this.setState({ allProducts: res }))
+      .catch((err) => console.error(err));
+  }
+
   componentDidMount() {
     productsData.getLatestProducts()
       .then((res) => this.setState({ productsResults: res, latestProducts: res }))
       .catch((err) => console.error(err));
-    productsData.getAllProducts()
-      .then((res) => this.setState({ allProducts: res }));
+    this.getAllProducts();
   }
 
   render() {
-    const { productsResults } = this.state;
+    const { allProducts, productsResults } = this.state;
     const printLatestProducts = productsResults.map((product) => {
       const uniqueKey = `${product.productName.charAt(0)}${product.clubProductId}`;
       return (
@@ -68,16 +96,30 @@ class Home extends React.Component {
             onChange={(event) => this.updateQuery(event.currentTarget.value)}
           />
           <h4>Product Categories</h4>
-          <ul>
-            <li>Tickets (20)</li>
-            <li>Spectator Packages (5)</li>
-            <li>Fighter Packages (4)</li>
+          <ul
+          onClick={this.filterProduct}
+          >
+            <li id='1' >Tickets ({this.findAmount(1)})</li>
+            <li id='2'>Spectator Packages ({this.findAmount(2)})</li>
+            <li id='3' >Fighter Packages ({this.findAmount(3)})</li>
+            <li id='0' >All ({allProducts.length})</li>
+
           </ul>
         </div>
         <div className="home-main">
           <h1>Products</h1>
           <div className="home-main-productWindow">
-            {productsResults ? printLatestProducts : ''}
+            {
+              (productsResults.length > 0)
+                ? (
+                  printLatestProducts
+                )
+                : (
+                  <React.Fragment>
+                    <p>Results no found</p>
+                  </React.Fragment>
+                )
+            }
           </div>
         </div>
       </div>

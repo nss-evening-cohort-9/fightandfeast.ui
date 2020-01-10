@@ -12,6 +12,7 @@ const ProductCard = (props) => {
     price,
     productName,
     productDescription,
+
   } = props.product;
   const ProductPageLink = `/ClubProductsId/${clubProductId}`;
   return (
