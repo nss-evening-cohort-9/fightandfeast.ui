@@ -1,8 +1,8 @@
 .ProductCard {
   display: flex;
   flex-direction: column;
-  width: 200px;
-  height: 200px;
+  width: 210px;
+  height: 210px;
   margin: .5rem;
   font-size: .8rem;
   text-overflow: ellipsis;
@@ -12,11 +12,17 @@ h6 {
   font-size: .95rem;
 }
 
-.product-card-price {
+.product-card-footer {
+  display: flex;
+  flex-direction: row;
   font-size: .95rem;
   margin: 0;
   padding: 0;
   margin-top: auto;
-  align-items: flex-end;
+  justify-content: space-between;
   text-align-last: end;
+}
+
+.product-card-price {
+  align-self: flex-end;
 }

@@ -72,7 +72,12 @@ class App extends React.Component {
       <div className="App">
         <BrowserRouter>
           <React.Fragment>
-            <Navbar authenticated={authenticated}/>
+            <Navbar
+              authenticated={authenticated}
+              allProducts={this.state.allProducts}
+              query={this.state.query}
+            />
+            <div>
               <Switch>
                 <PublicRoute path='/register' component={Register} authenticated={this.state.authenticated} />
                 <PublicRoute path='/login' component={Login} authenticated={this.state.authenticated} />
@@ -86,6 +91,7 @@ class App extends React.Component {
                 </PrivateRoute>
                 <Redirect from="*" to="/home" />
               </Switch>
+            </div>
           </React.Fragment>
         </BrowserRouter>
       </div>
