@@ -45,35 +45,35 @@ class Home extends React.Component {
   filterProduct = (e) => {
     const ProductType = e.target.id;
     const intProductType = parseInt(ProductType, 10);
-    console.error(ProductType);
     const { allProducts } = this.state;
-    if (intProductType === 0) {
-      this.getAllProductsClub();
-    }
+
     const filteredData = allProducts.filter((product) => product.typeId === intProductType);
     this.setState({
-      latestProducts: filteredData,
+      productsResults: filteredData,
     });
-    console.error(this.state.latestProducts, 'ppp');
+    if (intProductType === 0) {
+      this.setState({
+        productsResults: allProducts,
+      });
+    }
   }
 
   findAmount = (id) => {
-    // write function to fine amount of products with the given id
-    const filteredData = allProducts.filter((product)) => product.Id
-    return amount;
+    const filteredData = this.state.allProducts.filter((product) => product.typeId === id);
+    return filteredData.length;
   };
 
-
-  getAllProductsClub = () => {
-    productsData.getLatestProducts()
-      .then((res) => this.setState({ productsResults: res, latestProducts: res }))
-      .catch((err) => console.error(err));
+  getAllProducts = () => {
     productsData.getAllProducts()
-      .then((res) => this.setState({ allProducts: res }));
+      .then((res) => this.setState({ allProducts: res }))
+      .catch((err) => console.error(err));
   }
 
   componentDidMount() {
-    this.getAllProductsClub();
+    productsData.getLatestProducts()
+      .then((res) => this.setState({ productsResults: res, latestProducts: res }))
+      .catch((err) => console.error(err));
+    this.getAllProducts();
   }
 
   render() {
@@ -100,9 +100,9 @@ class Home extends React.Component {
           onClick={this.filterProduct}
           >
             <li id='1' >Tickets ({this.findAmount(1)})</li>
-            <li id='2'>Spectator Packages ({allProducts.length})</li>
-            <li id='3' >Fighter Packages ({allProducts.length})</li>
-            <li id='0' >All</li>
+            <li id='2'>Spectator Packages ({this.findAmount(2)})</li>
+            <li id='3' >Fighter Packages ({this.findAmount(3)})</li>
+            <li id='0' >All ({allProducts.length})</li>
 
           </ul>
         </div>
