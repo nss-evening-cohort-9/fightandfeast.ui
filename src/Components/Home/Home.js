@@ -1,5 +1,6 @@
 import React from 'react';
 
+import Fuse from 'fuse.js';
 import productsData from '../../Helpers/Data/ProductsData';
 
 import ProductCard from '../ProductCard/ProductCard';
@@ -8,32 +9,67 @@ import './Home.scss';
 
 class Home extends React.Component {
   state = {
+    allProducts: [],
     latestProducts: [],
     productsClub: [],
+    productsResults: [],
+  }
+
+  searchOptions = {
+    shouldSort: true,
+    threshold: 0.6,
+    location: 0,
+    maxPatternLength: 32,
+    minMatchCharLength: 1,
+    keys: [
+      'clubName',
+      'productName',
+    ],
+  };
+
+  updateQuery = (queryValue) => {
+    const fuse = new Fuse(this.state.allProducts, this.searchOptions);
+    this.sortVariables.query = queryValue;
+    const newProductsResults = fuse.search(queryValue);
+    console.error('newProductsResults', newProductsResults);
+    queryValue !== ''
+      ? this.setState({ productsResults: newProductsResults })
+      : this.setState({ productsResults: this.state.latestProducts });
+  }
+
+  sortVariables = {
+    query: '',
   }
 
 
   filterProduct = (e) => {
     const ProductType = e.target.id;
-    console.error(ProductType, '888');
     const intProductType = parseInt(ProductType, 10);
     console.error(ProductType);
-    const { productsClub } = this.state;
+    const { allProducts } = this.state;
     if (intProductType === 0) {
       this.getAllProductsClub();
     }
-    const filteredData = productsClub.filter((product) => product.typeId === intProductType);
+    const filteredData = allProducts.filter((product) => product.typeId === intProductType);
     this.setState({
       latestProducts: filteredData,
     });
     console.error(this.state.latestProducts, 'ppp');
   }
 
+  findAmount = (id) => {
+    // write function to fine amount of products with the given id
+    const filteredData = allProducts.filter((product)) => product.Id
+    return amount;
+  };
+
 
   getAllProductsClub = () => {
     productsData.getLatestProducts()
-      .then((res) => this.setState({ latestProducts: res, productsClub: res }))
+      .then((res) => this.setState({ productsResults: res, latestProducts: res }))
       .catch((err) => console.error(err));
+    productsData.getAllProducts()
+      .then((res) => this.setState({ allProducts: res }));
   }
 
   componentDidMount() {
@@ -41,8 +77,8 @@ class Home extends React.Component {
   }
 
   render() {
-    const { latestProducts } = this.state;
-    const printLatestProducts = latestProducts.map((product) => {
+    const { allProducts, productsResults } = this.state;
+    const printLatestProducts = productsResults.map((product) => {
       const uniqueKey = `${product.productName.charAt(0)}${product.clubProductId}`;
       return (
         <ProductCard
@@ -54,13 +90,18 @@ class Home extends React.Component {
     return (
       <div className="Home">
         <div className="home-sidebar">
+          <input
+            type='search'
+            value={this.sortVariables.query}
+            onChange={(event) => this.updateQuery(event.currentTarget.value)}
+          />
           <h4>Product Categories</h4>
           <ul
           onClick={this.filterProduct}
           >
-            <li id='1' >Tickets({latestProducts.length})</li>
-            <li id='2'>Spectator Packages({latestProducts.length})</li>
-            <li id='3' >Fighter Packages({latestProducts.length})</li>
+            <li id='1' >Tickets ({this.findAmount(1)})</li>
+            <li id='2'>Spectator Packages ({allProducts.length})</li>
+            <li id='3' >Fighter Packages ({allProducts.length})</li>
             <li id='0' >All</li>
 
           </ul>
@@ -69,7 +110,7 @@ class Home extends React.Component {
           <h1>Products</h1>
           <div className="home-main-productWindow">
             {
-              (latestProducts.length > 0)
+              (productsResults.length > 0)
                 ? (
                   printLatestProducts
                 )

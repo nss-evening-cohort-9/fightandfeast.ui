@@ -21,11 +21,9 @@ const ProductCard = (props) => {
       <p className="mb-0">at {clubName}</p>
       <p className="border-bottom pb-1 mb-1">{moment({ eventDate }).format('MMMM Do, YYYY')}</p>
       <p>{productDescription}</p>
-      <div className="product-card-price">
-        <p className="p-0 m-0">${price}</p>
-      <div className="productPage">
-       <Link className="btn btn-success" to={ProductPageLink}>View</Link>
-       </div>
+      <div className="product-card-footer">
+        <p className="p-0 m-0 product-card-price">${price.toFixed(2)}</p>
+        <Link className="btn btn-success" to={ProductPageLink}>View</Link>
       </div>
     </div>
   );
