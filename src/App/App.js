@@ -7,7 +7,6 @@ import {
 } from 'react-router-dom';
 import firebase from 'firebase/app';
 import Home from '../Components/Home/Home';
-import Auth from '../Components/Auth/Auth';
 import Navbar from '../Components/MyNavbar/MyNavbar';
 import Register from '../Components/Register/Register';
 import fbConnection from '../Helpers/fbConnection';
@@ -77,7 +76,6 @@ class App extends React.Component {
               <Switch>
                 <PublicRoute path='/register' component={Register} authenticated={this.state.authenticated} />
                 <PublicRoute path='/login' component={Login} authenticated={this.state.authenticated} />
-                <PublicRoute path='/auth' component={Auth} authenticated={this.state.authenticated} />
                 <PrivateRoute path='/home' component={Home} authenticated={this.state.authenticated} />
                 <PrivateRoute path='/products' component={ProductCard} authenticated={this.state.authenticated} />
                 <PrivateRoute path="/ClubProductsId/:id" component={ProductPage} authenticated={this.state.authenticated} />
