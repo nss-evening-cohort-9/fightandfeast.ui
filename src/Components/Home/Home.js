@@ -1,5 +1,6 @@
 import React from 'react';
 
+import Fuse from 'fuse.js';
 import productsData from '../../Helpers/Data/ProductsData';
 
 import ProductCard from '../ProductCard/ProductCard';
@@ -8,18 +9,48 @@ import './Home.scss';
 
 class Home extends React.Component {
   state = {
+    allProducts: [],
     latestProducts: [],
+    productsResults: [],
+  }
+
+  searchOptions = {
+    shouldSort: true,
+    threshold: 0.6,
+    location: 0,
+    maxPatternLength: 32,
+    minMatchCharLength: 1,
+    keys: [
+      'clubName',
+      'productName',
+    ],
+  };
+
+  updateQuery = (queryValue) => {
+    const fuse = new Fuse(this.state.allProducts, this.searchOptions);
+    this.sortVariables.query = queryValue;
+    const newProductsResults = fuse.search(queryValue);
+    console.error('newProductsResults', newProductsResults);
+    queryValue !== ''
+      ? this.setState({ productsResults: newProductsResults })
+      : this.setState({ productsResults: this.state.latestProducts });
+  }
+
+  sortVariables = {
+    query: '',
   }
 
   componentDidMount() {
     productsData.getLatestProducts()
-      .then((res) => this.setState({ latestProducts: res }))
+      .then((res) => this.setState({ productsResults: res, latestProducts: res }))
       .catch((err) => console.error(err));
+    productsData.getAllProducts()
+      .then((res) => this.setState({ allProducts: res }));
   }
 
   render() {
-    const { latestProducts } = this.state;
-    const printLatestProducts = latestProducts.map((product) => {
+    const { productsResults } = this.state;
+    const printLatestProducts = productsResults.map((product) => {
       const uniqueKey = `${product.productName.charAt(0)}${product.clubProductId}`;
       return (
         <ProductCard
@@ -31,6 +62,11 @@ class Home extends React.Component {
     return (
       <div className="Home">
         <div className="home-sidebar">
+          <input
+            type='search'
+            value={this.sortVariables.query}
+            onChange={(event) => this.updateQuery(event.currentTarget.value)}
+          />
           <h4>Product Categories</h4>
           <ul>
             <li>Tickets (20)</li>
@@ -41,7 +77,7 @@ class Home extends React.Component {
         <div className="home-main">
           <h1>Products</h1>
           <div className="home-main-productWindow">
-            {latestProducts ? printLatestProducts : ''}
+            {productsResults ? printLatestProducts : ''}
           </div>
         </div>
       </div>

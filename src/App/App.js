@@ -27,7 +27,10 @@ class App extends React.Component {
       <div className="App">
         <BrowserRouter>
           <React.Fragment>
-            <Navbar />
+            <Navbar
+              allProducts={this.state.allProducts}
+              query={this.state.query}
+            />
             <div>
               <Switch>
                 <Route exact path="/">
