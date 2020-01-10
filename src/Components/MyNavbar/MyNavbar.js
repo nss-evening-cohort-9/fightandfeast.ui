@@ -9,6 +9,7 @@ import {
   NavItem,
   NavLink,
 } from 'reactstrap';
+import Validation from '../../Helpers/Validation/Validation';
 
 import './MyNavbar.scss';
 
@@ -30,7 +31,7 @@ const MyNavbar = (props) => {
             <NavLink href="/cart">Cart</NavLink>
           </NavItem>
           <NavItem>
-            <NavLink href="/">Logout</NavLink>
+            <NavLink onClick={Validation.logoutUser}>Logout</NavLink>
           </NavItem>
         </Nav>
       </Collapse>
