@@ -13,6 +13,7 @@ class Home extends React.Component {
     latestProducts: [],
     productsClub: [],
     productsResults: [],
+    Seller: [],
   }
 
   searchOptions = {
@@ -40,6 +41,13 @@ class Home extends React.Component {
   sortVariables = {
     query: '',
   }
+
+  fillterProductBySeller = (clubName) => {
+    const filteredData = this.state.allProducts.filter((product) => product.clubName === clubName);
+    this.setState({
+      productsResults: filteredData,
+    });
+  };
 
 
   filterProduct = (e) => {
@@ -71,7 +79,15 @@ class Home extends React.Component {
 
   componentDidMount() {
     productsData.getLatestProducts()
-      .then((res) => this.setState({ productsResults: res, latestProducts: res }))
+      .then((res) => {
+        if (this.props.match.params.searchByclubName) {
+          console.error(res);
+          const filteredData = res.filter((product) => product.clubName === this.props.match.params.searchByclubName);
+          this.setState({ productsResults: filteredData });
+        } else {
+          this.setState({ productsResults: res, latestProducts: res });
+        }
+      })
       .catch((err) => console.error(err));
     this.getAllProducts();
   }
@@ -84,6 +100,8 @@ class Home extends React.Component {
         <ProductCard
           key={uniqueKey}
           product={product}
+          fillterProductBySeller={this.fillterProductBySeller}
+
         />
       );
     });

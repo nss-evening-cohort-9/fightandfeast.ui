@@ -14,11 +14,16 @@ const ProductCard = (props) => {
     productDescription,
 
   } = props.product;
+
+  const fillterProductBySeller = () => {
+    props.fillterProductBySeller(clubName);
+  };
+
   const ProductPageLink = `/ClubProductsId/${clubProductId}`;
   return (
     <div className="ProductCard border p-2">
       <h6 className="mb-0">{productName}</h6>
-      <p className="mb-0">at {clubName}</p>
+      <p className="pointer mb-0" onClick={fillterProductBySeller}>at {clubName}</p>
       <p className="border-bottom pb-1 mb-1">{moment({ eventDate }).format('MMMM Do, YYYY')}</p>
       <p>{productDescription}</p>
       <div className="product-card-footer">
